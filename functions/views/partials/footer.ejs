@@ -1,0 +1,8 @@
+	<button onclick={signOut()}> Sign Out </button>
+
+	<script type="text/javascript">
+		function signOut() {
+			firebase.auth().signOut();
+			location.reload();
+		}
+</script>

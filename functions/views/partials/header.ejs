@@ -1,0 +1,50 @@
+<div id="header">
+
+		<h1>Welcome to my app :)</h1>
+
+		<div id="menu">
+
+			<a href="/"> Home </a>
+			<a href="/users"> View Users </a>	
+
+			<span id="logged-in">
+				<a href="/profile">Profile</a>
+			</span>
+
+			<div id="not-logged-in">
+				<a href="/login">Login</a>
+				<a href="/create">Create</a>
+			</div>
+
+			<p id="display-name"></p>
+			<img id="profile-img" width="200">
+
+		</div>
+
+
+	<script>
+		const userName = document.getElementById("display-name");
+		const profileImg = document.getElementById("profile-img");
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				console.log(user.uid);
+				userName.textContent = "Hello, " +  user.displayName;
+				if (user.photoURL)
+					profileImg.src = user.photoURL;
+				const userInput = document.getElementById("userInput");
+				userInput.value = user.uid;
+				document.getElementById("logged-in").style.display = "inline";
+			} else {
+				document.getElementById("not-logged-in").style.display = "inline";
+				document.getElementById("logged-in").style.display = "none";
+			}
+			
+		});
+
+		function signOut() {
+			firebase.auth().signOut();
+			location.reload();
+		}
+	</script>
+
+

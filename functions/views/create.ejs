@@ -1,0 +1,40 @@
+<% include partials/head.ejs %>
+<body>
+	<h1>Welcome to my app :)</h1>
+	<p> Hello world! </p>
+	
+	<div id="create">
+	<input type="text" placeholder="Enter name" id="nameInput">
+	<input type="text" placeholder="Enter email" id="emailInput">
+	<input type="password" placeholder="Enter password" id="passwordInput">
+	<button onclick={createUser()}>Submit</button>
+	<p id="errorMessage"></p>
+</div>
+
+
+	<script type="text/javascript">
+	function createUser() {
+	firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+		.then(function(user) {
+			user.updateProfile({ displayName: nameInput.value})
+				.then(function(success) {
+					const db = firebase.database();
+					const ref = db.ref('/users/' + user.uid);
+					ref.set({ name: nameInput.value })
+						.then(function(success){
+							location.href = '/';
+						})
+						.catch(function(error) {
+							console.log(error);
+						})
+				})
+				.catch(function(error){
+					console.log(error);
+				});
+		})
+		.catch(function(error) {
+			const errorMessage = document.getElementById("errorMessage");
+			errorMessage.textContent = error.message;
+		});
+}
+	</script>

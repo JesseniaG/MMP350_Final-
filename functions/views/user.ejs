@@ -1,0 +1,110 @@
+<% include partials/head.ejs %>
+
+<body>
+
+	<% include partials/header.ejs %>
+	<!-- display user posts here -->
+	
+		<div id="posts">
+			<h2>Assignments by <%= data.name %></h2>
+			<% if (data.post) { %>
+
+				<!-- show posts -->
+				<% let keys = Object.keys(data.post); %>
+				<% keys.forEach(function(key) { %>
+					<% let post = data.post[key]; %>
+					<div class="post">
+						<% if (data.profile_img_url) { %>
+							<img src="<%= data.profile_img_url %>" width="100">
+						<% } %>
+					
+						<div class="text"> 
+							<%= post.text %> 
+						</div>
+					<% let d = new Date(post.date); %>
+					<div class="date">
+						posted on 
+						<%= d.toLocaleString('en-us' , {
+							month: 'long',
+							weekday: 'short',
+							day: 'numeric',
+							}); %>
+					</div>
+
+					<div id="like">
+						<button onclick={likePost("<%= key %>")}>Like</button>
+						<button onclick={unlikePost("<%= key %>")}>Unlike</button>
+						<span id="likes">
+							<% if (post.likes) { %>
+								<%= Object.keys(post.likes).length %>
+
+							<% } else { %>
+								0
+
+							<% } %>
+							 Likes
+							
+						</span>
+					</div>
+		</div>
+
+				<% }); %>
+
+			<% } else { %> 
+
+			<p> This user has not posted yet :( </p>
+
+			<% } %>
+	
+			<script type="text/javascript">
+
+
+
+			function likePost(postId) {
+				const currentUser = firebase.auth().currentUser; 
+				const posterId = "<%= user %>";
+				const db = firebase.database();
+				const ref = db.ref('/users/' 
+									+ posterId 
+									+ '/post/' 
+									+ postId 
+									+ '/likes/' 
+									+ currentUser.uid);
+
+				ref.set({name: currentUser.displayName})
+					.then(function(success) {
+						location.reload();
+					})
+					.catch(function(error){
+						console.log('error', error);
+					});
+			}
+
+			function unlikePost(postId) {
+				const currentUser = firebase.auth().currentUser;
+				const posterId = "<%= user %>";
+				const db = firebase.database();
+				db.ref('users')
+					.child(posterId)
+					.child('posts')
+					.child(postId)
+					.child('likes')
+					.child(currentUser.uid)
+					.remove()
+					.then(function(success) {
+						location.reload();
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
+			}
+
+			</script>
+
+		</div>
+
+	<% include partials/footer.ejs %>
+
+</body>
+
+</html>

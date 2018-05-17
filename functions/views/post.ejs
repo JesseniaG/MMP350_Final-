@@ -1,0 +1,56 @@
+<% include partials/head.ejs %>
+
+<body>
+
+	<% include partials/header.ejs %>
+
+	
+
+	<div id="post">
+
+		<textarea id="post-text" placeholder="Write your post here!"> </textarea>
+		<br>
+		<button onclick={savePost()}> Post </button>
+	</div>
+
+	<div id="message"> </div>
+
+
+
+
+
+	<script type="text/javascript">
+
+		function savePost(){
+			const message = document.getElementById("message");
+			const text = document.getElementById("post-text");
+			const uid = firebase.auth().currentUser.uid;
+			console.log(uid);
+			const db = firebase.database();
+			const ref = db.ref('/users/' + uid + '/post');
+			
+			
+			const post = {
+				text: document.getElementById("post-text").value,
+				date: new Date().toString()
+			};
+			
+
+			ref.push(post)
+			.then(function(success) {
+				message.textContent = "Your post is up!";
+				text.value = "";
+			})
+			.catch(function(error){
+					console.log(error);
+				});
+
+		}
+
+		
+	</script>
+
+	<%include partials/footer.ejs %>
+
+</body>
+</html>

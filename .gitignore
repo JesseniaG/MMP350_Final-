@@ -1,0 +1,4 @@
+.DS_Store
+functions/node_modules/
+functions/key.json
+functions/public/css/.sass-cache
