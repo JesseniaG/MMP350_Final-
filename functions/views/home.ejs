@@ -77,21 +77,19 @@
   <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
 </div> 
 
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 <div id="post">
-    <input id="assignment-title" type="text" placeholder="Assignment Name" value="">
+    <input id="assignment-title" type="text" placeholder="Assignment Name" value=""> <br><br>
     <textarea id="assignment-body" value="Submit your assignment"> </textarea> <br>
     <br>
     <button onclick={submitAssignment()}> Submit Assignment </button> 
 
-  </div>
-  <h3> Want to post? </h3> 
+  </div> <br><br><br><br>
+
 
   <script type="text/javascript">
-
     function submitAssignment(){
-
         let assignmentTitle = document.getElementById("assignment-title");
         let assignmentBody = document.getElementById("assignment-body");
         
@@ -100,13 +98,11 @@
       const db = firebase.database();
       const ref = db.ref('/users/' + uid + '/assignment');
       
-
       if (assignmentTitle.value && assignmentBody.value) {
          const assignment = {
           assignmentTitle: assignmentTitle.value,
           assignmentBody: assignmentBody.value
         };
-
         ref.push(assignment)
           .then(function(success){
             console.log('Post was sent!');
@@ -119,11 +115,7 @@
       } else {
         alert('You cannot submit an empty assignment...');
       }
-
       
-
-
-
     //   ref.push(post)
     //   .then(function(success) {
     //     message.textContent = "Your post is up!";
@@ -132,11 +124,25 @@
     //   .catch(function(error){
     //       console.log(error);
     //     });
-
     }
-
     
   </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<script type="text/javascript">
 	var acc = document.getElementsByClassName("accordion");
