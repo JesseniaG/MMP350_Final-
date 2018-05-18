@@ -6,7 +6,7 @@
 	<!-- display user posts here -->
 	
 		<div id="posts">
-			<h2>Assignments by <%= data.name %></h2>
+			<h2>Posts by <%= data.name %></h2>
 			<% if (data.post) { %>
 
 				<!-- show posts -->
@@ -32,8 +32,8 @@
 					</div>
 
 					<div id="like">
-						<button onclick={likePost("<%= key %>")}>Like</button>
-						<button onclick={unlikePost("<%= key %>")}>Unlike</button>
+						<button onclick={likePost("<%= key %>")}>Like ❤️ </button>
+						<button onclick={unlikePost("<%= key %>")}>Unlike 💔</button>
 						<span id="likes">
 							<% if (post.likes) { %>
 								<%= Object.keys(post.likes).length %>

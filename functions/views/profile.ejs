@@ -3,9 +3,12 @@
 	<% include partials/header.ejs %>
 	
 	<!--  add profile image  -->
-	<p>Add a profile image:</p>
-	<input  type="file" id="profile_img_file" accept="image/gif, image/jpeg, image/png">
-	<button id="submit">Submit Image</button>
+	<p>Add a profile image:</p> <br>
+	<div class="imgcontainer">
+    <img src="/img/placeholder.png" width="50" height="650" alt="Avatar" class="avatar">
+  </div>
+	<input  type="file" id="profile_img_file" accept="image/gif, image/jpeg, image/png"> <br> <br>
+	<button id="submit">Submit Image</button> <br>
 
 	<script type="text/javascript">
 		document.getElementById("submit").onclick = function() {

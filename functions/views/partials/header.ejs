@@ -1,29 +1,36 @@
 <div id="header">
 
-		<h1>Welcome to my app :)</h1>
-
 		<div id="menu">
 
-			<a href="/"> Home </a>
-			<a href="/users"> View Users </a>	
+			<ul>
+
+			<li><a href="/home"> Home </a></li>
 
 			<span id="logged-in">
-				<a href="/profile">Profile</a>
-				<form method="GET" action="/post">
+				<li><a href="/profile">Profile</a></li>
+				<li><a href="/post" id="post-link">Post</a></li>
+				<!-- <form method="GET" action="/post">
    				 	<input type="hidden" name="uid" id="userInput">
-    				<input type="submit" value="Click Here">
- 				</form> 
+    				<input type="submit" value="Post">
+ 				</form>  -->
 			</span>
 
+			<li><a href="/users"> View Users </a></li>
+
 			<div id="not-logged-in">
-				<a href="/login">Login</a>
-				<a href="/create">Create</a>
+				<li><a href="/login">Login</a></li>
+				<li><a href="/create">Create</a></li>
 			</div>
 
 			<p id="display-name"></p>
 			<img id="profile-img" width="200">
 
+			</ul>
+
 		</div>
+
+		
+
 
 
 	<script>
@@ -35,9 +42,9 @@
 				userName.textContent = "Hello, " +  user.displayName;
 				if (user.photoURL)
 					profileImg.src = user.photoURL;
-				const userInput = document.getElementById("userInput");
-				if (userInput)
-					userInput.value = user.uid;
+				const postLink = document.getElementById("post-link");
+				if (postLink)
+					postLink.href = '/post/' + user.uid;
 				document.getElementById("logged-in").style.display = "inline";
 			} else {
 				document.getElementById("not-logged-in").style.display = "inline";
@@ -51,5 +58,7 @@
 			location.reload();
 		}
 	</script>
+
+
 
 

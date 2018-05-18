@@ -32,7 +32,7 @@ app.use(express.static('public'));
 /*----------------------------------------------*/
 
 function isAuthenticated(request, response, next){
-	const uid = request.query.uid;
+	const uid = request.params.id;
 	firebaseAdmin.auth().getUser(uid)
 		.then(function(user){
 			next();
@@ -45,6 +45,10 @@ function isAuthenticated(request, response, next){
 
 /*----------------------------------------------*/
 app.get('/', function(request,response){
+	response.render('login.ejs');
+});
+
+app.get('/home', function(request,response){
 	response.render('home.ejs');
 });
 
@@ -56,12 +60,8 @@ app.get('/create', function(request, response){
 	response.render('create.ejs');
 });
 
-app.get('/post', isAuthenticated, function(request, response){
+app.get('/post/:id', isAuthenticated, function(request, response){
 	response.render('post.ejs');
-});
-
-app.get('/assignments', function(request, response){
-	response.render('assignments.ejs');
 });
 
 app.get('/users/', function(request, response){
@@ -89,15 +89,19 @@ app.get('/user/:id', function(request, response) {
 app.get('/profile', function(request, response) {
 	response.render('profile.ejs');
 });
+
+app.get('/profile', function(request, response) {
+	response.render('profile.ejs');
+});
 /*----------------------------------------------*/
 app.get('/about', function(request,response){
 	response.send('<h1>About</h1> <a href="/"> Back </a>');
 });
 
-// const port = process.envPORT || 8000;
-// app.listen(port, function(){
-// 	console.log("App running on port", port);
-// });
+const port = process.envPORT || 8000;
+app.listen(port, function(){
+	console.log("App running on port", port);
+});
 
 
 exports.app = functions.https.onRequest(app);

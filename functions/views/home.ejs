@@ -2,12 +2,140 @@
 
 <body>
 
-	<% include partials/header.ejs %>
-	
-	<form method="GET" action="/post">
-		<input type="hidden" name="uid" id="userInput">
-		<input type="submit" value="Write a new post">
-	</form>
+  <% include partials/header.ejs %>
+
+	<h1> My Dashboard </h1>
+<br><br><br>
+<h2> My Course</h2>
+
+<table>
+  <tr>
+    <th> MMP 350-1900 </th>
+  </tr>
+  <tr>
+    <th> Instructor: Owen Roberts </th>
+  </tr>
+  <tr>
+    <th> Email: oroberts@bmcc.cuny.edu </th>
+  </tr>
+  <tr>
+    <th> Class Hour: Mon & Wed 7:30 - 9:10 PM </th>
+  </tr>
+  <tr>
+    <th> Room: Fiterman 1006 </th>
+  </tr>
+
+</table>
+
+
+
+<br><br><br><br>
+
+<h2> Course Description </h2>
+<p> This course gives the students the tools to build standards-compliant, accessible, dynamic web sites. Students will incorporate client-side and server-side scripting with advanced CSS to create intuitive and interactive web interfaces. The learning will take placed in the context of a content management system. Contemporary web development processes and platforms will be explored. A foundational knowledge of programming concepts, HTML, CSS and design for the web is required for this course. <br><br> Students will write HTML, CSS JavaScript for client side programming, and NodeJS, Express, EJS, Firebase and other frameworks for server programming. They will use image editing programs, Photoshop, Fireworks and Illustrator to create graphics for websites. They will use the command line, Git and Github to manage source code, update and deploy sites. </p>
+
+<br><br><br><br>
+<h2> Assignments </h2>
+<button class="accordion"> Week 1 : Assignment 1 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 2 : Assignment 2 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 3 : Assignment 3 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 4 : Assignment 4 </button>
+<div class="panel">
+ <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 5 : Assignment 5 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 6 : Assignment 6 </button>
+<div class="panel">
+ <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 7 : Assignment 7 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 8 : Assignment 8 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 9 : Assignment 9 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+<button class="accordion"> Week 10 : Assignment 10 </button>
+<div class="panel">
+  <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+</div> 
+
+<br><br><br><br><br><br>
+
+<div id="post">
+    <input type="text" placeholder="Assignment Name">
+    <textarea id="post-text" placeholder="Assignment submission"> </textarea> <br>
+    <br>
+    <button onclick={savePost()}> Submit Assignment </button> 
+
+  </div>
+  <h3> Want to post? </h3> 
+
+  <script type="text/javascript">
+
+    function savePost(){
+      const message = document.getElementById("message");
+      const text = document.getElementById("post-text");
+      const uid = firebase.auth().currentUser.uid;
+      console.log(uid);
+      const db = firebase.database();
+      const ref = db.ref('/users/' + uid + '/post');
+      
+      
+      const post = {
+        title: 
+        text: document.getElementById("post-text").value,
+        date: new Date().toString()
+      };
+      
+
+      ref.push(post)
+      .then(function(success) {
+        message.textContent = "Your post is up!";
+        text.value = "";
+      })
+      .catch(function(error){
+          console.log(error);
+        });
+
+    }
+
+    
+  </script>
+
+	<script type="text/javascript">
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}
+</script>
 	
 	
 </body>

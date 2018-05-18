@@ -4,13 +4,13 @@
 
 	<% include partials/header.ejs %>
 
-	
+	<h2> Post Board </h2> <br>
+	<p> This is the Post Board where you can discuss a topic or a group of related topics. Within this board includes an initial post and all replies to it. You can create threads and like each post within the board to encourage conversation about topics relevant to your course. </p> <br><br>
 
 	<div id="post">
-
-		<textarea id="post-text" placeholder="Write your post here!"> </textarea>
+		<textarea id="post-text" placeholder="What's on your mind?"> </textarea> <br>
 		<br>
-		<button onclick={savePost()}> Post </button>
+		<button onclick={savePost()}> Post </button> 
 	</div>
 
 	<div id="message"> </div>
@@ -31,6 +31,7 @@
 			
 			
 			const post = {
+				title: 
 				text: document.getElementById("post-text").value,
 				date: new Date().toString()
 			};

@@ -1,14 +1,19 @@
 <% include partials/head.ejs %>
 <body>
-	<h1>Welcome to my app :)</h1>
-	<p> Hello world! </p>
-	<a href="/login">Login</a>
-	<a href="/create">Create</a> 
+	<h1> Welcome To Academic Board </h1>
+	<p> Log in to view your Account. 👇 </p>
+
+	<p> New here? Register for a New Account <a href="/create"> 👉 >>>>> </a> </p> <br><br>
+
+	 <div class="imgcontainer">
+    <img src="/img/img_avatar2.png" width="50" height="650" alt="Avatar" class="avatar">
+  </div>
+
 
 		<div id="login">
 			<input type="text" placeholder="Enter email" id="emailInput">
 			<input type="password" placeholder="Enter password" id="passwordInput">
-			<button onclick="{signIn()}">Sign in</button>
+			<button onclick="{signIn()}">Login</button>
 			<p id="errorMessage"></p>
 		</div>
 
@@ -21,7 +26,7 @@
 		const password = passwordInput.value;
 		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(function(user) {
-			location.href = "/";
+			location.href = "/home";
 		})
 		.catch(function(error) {
 			console.log(error);
