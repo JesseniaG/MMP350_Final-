@@ -9,6 +9,10 @@
 
 			<span id="logged-in">
 				<a href="/profile">Profile</a>
+				<form method="GET" action="/post">
+   				 	<input type="hidden" name="uid" id="userInput">
+    				<input type="submit" value="Click Here">
+ 				</form> 
 			</span>
 
 			<div id="not-logged-in">
@@ -32,7 +36,8 @@
 				if (user.photoURL)
 					profileImg.src = user.photoURL;
 				const userInput = document.getElementById("userInput");
-				userInput.value = user.uid;
+				if (userInput)
+					userInput.value = user.uid;
 				document.getElementById("logged-in").style.display = "inline";
 			} else {
 				document.getElementById("not-logged-in").style.display = "inline";

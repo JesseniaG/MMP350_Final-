@@ -1,0 +1,45 @@
+<% include partials/head.ejs %>
+<body>
+	<% include partials/header.ejs %>
+	
+	<!--  add profile image  -->
+	<p>Submit your assignment:</p>
+	<input  type="file" id="assignment_img_file" accept="image/gif, image/jpeg, image/png">
+	<button id="submit">Submit</button>
+
+	<script type="text/javascript">
+		document.getElementById("submit").onclick = function() {
+			const user = firebase.auth().currentUser;
+			const file = document.getElementById("assignment_img_file").files[0];
+			const storage = firebase.storage();
+			const ref = storage.ref('/users/' + user.uid);
+			ref.child('assignment_img').put(file)
+				.then(function(file){
+					const url = file.downloadURL;
+					const db = firebase.database();
+					const dbRef = db.ref('/users/' + user.uid + '/assignment_img_url');
+					dbRef.set(url)
+						.then(function(success) {
+							user.updateProfile({ photoURL: file.downloadURL })
+								.then(function(success) {
+									location.reload();
+								})
+								.catch(function(error) {
+									console.log(error);
+								})
+						})
+						.catch(function(error) {
+							console.log(error);
+						});
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+
+		};
+
+	</script>
+
+	<% include partials/footer.ejs %>
+</body>
+</html>

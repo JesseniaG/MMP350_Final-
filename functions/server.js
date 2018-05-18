@@ -60,6 +60,10 @@ app.get('/post', isAuthenticated, function(request, response){
 	response.render('post.ejs');
 });
 
+app.get('/assignments', function(request, response){
+	response.render('assignments.ejs');
+});
+
 app.get('/users/', function(request, response){
 	const ref = db.ref('users');
 	ref.once('value')
