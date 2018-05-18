@@ -80,40 +80,58 @@
 <br><br><br><br><br><br>
 
 <div id="post">
-    <input type="text" placeholder="Assignment Name">
-    <textarea id="post-text" placeholder="Assignment submission"> </textarea> <br>
+    <input id="assignment-title" type="text" placeholder="Assignment Name" value="">
+    <textarea id="assignment-body" value="Submit your assignment"> </textarea> <br>
     <br>
-    <button onclick={savePost()}> Submit Assignment </button> 
+    <button onclick={submitAssignment()}> Submit Assignment </button> 
 
   </div>
   <h3> Want to post? </h3> 
 
   <script type="text/javascript">
 
-    function savePost(){
-      const message = document.getElementById("message");
-      const text = document.getElementById("post-text");
+    function submitAssignment(){
+
+        let assignmentTitle = document.getElementById("assignment-title");
+        let assignmentBody = document.getElementById("assignment-body");
+        
       const uid = firebase.auth().currentUser.uid;
       console.log(uid);
       const db = firebase.database();
-      const ref = db.ref('/users/' + uid + '/post');
-      
-      
-      const post = {
-        title: 
-        text: document.getElementById("post-text").value,
-        date: new Date().toString()
-      };
+      const ref = db.ref('/users/' + uid + '/assignment');
       
 
-      ref.push(post)
-      .then(function(success) {
-        message.textContent = "Your post is up!";
-        text.value = "";
-      })
-      .catch(function(error){
-          console.log(error);
-        });
+      if (assignmentTitle.value && assignmentBody.value) {
+         const assignment = {
+          assignmentTitle: assignmentTitle.value,
+          assignmentBody: assignmentBody.value
+        };
+
+        ref.push(assignment)
+          .then(function(success){
+            console.log('Post was sent!');
+            assignmentTitle.value = "";
+            assignmentBody.value = "";
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+      } else {
+        alert('You cannot submit an empty assignment...');
+      }
+
+      
+
+
+
+    //   ref.push(post)
+    //   .then(function(success) {
+    //     message.textContent = "Your post is up!";
+    //     text.value = "";
+    //   })
+    //   .catch(function(error){
+    //       console.log(error);
+    //     });
 
     }
 
