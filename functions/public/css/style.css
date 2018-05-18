@@ -145,7 +145,6 @@ li {
 li a {
     display: block;
     margin-left: 30px;
-    margin-right: 30px;
     color: white;
     padding: 30px ;
     text-decoration: none;
@@ -197,13 +196,11 @@ img.avatar {
  #profile-img {
     width: 70px;
     margin-top: -80px;
-    padding-left: 100px; }
+    padding-left: 80px; }
 
 
-/* #profile_img_file {
-    background-color: green;
- }
-*/
+
+
 
 
 
